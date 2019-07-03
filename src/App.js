@@ -23,6 +23,7 @@ class App extends React.Component {
       },
     ]
   }
+  
   markComplete = (id) => {
     this.setState({ todos: this.state.todos.map((todo) => {
       if(todo.id === id) {
@@ -32,11 +33,16 @@ class App extends React.Component {
     })
   })
   }
+
+  deleteTodo = (id) => {
+    return this.setState({todos: this.state.todos.filter(todo => todo.id !== id)})
+  }
+
   render() {
     return (
       <div className="App">
         <h1>My ToDos</h1>
-        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+        <Todos todos={this.state.todos} markComplete={this.markComplete} deleteTodo={this.deleteTodo} />
       </div>
     );
   }
