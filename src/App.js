@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
 import AddTodo from './components/AddTodo';
+import About from './components/pages/About';
 
 
 class App extends React.Component {
@@ -50,7 +52,7 @@ class App extends React.Component {
       completed: false
     }
 
-    this.setState({todos: this.state.todos.concat(newTodoObj)});
+    this.setState({ todos: this.state.todos.concat(newTodoObj) });
 
     // alternative solution with spread operator
     // this.setState({todos: [...this.state.todos, newTodoObj]});
@@ -58,11 +60,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Header />
-        <AddTodo addTodo={this.addTodo} />
-        <Todos todos={this.state.todos} markComplete={this.markComplete} deleteTodo={this.deleteTodo} />
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <Route exact path="/" render={
+            props => (
+              <React.Fragment>
+                <AddTodo addTodo={this.addTodo} />
+                <Todos todos={this.state.todos} markComplete={this.markComplete} deleteTodo={this.deleteTodo} />
+              </React.Fragment>
+            )} />
+          <Route path="/about" component= {About} />
+        </div>
+      </Router>
     );
   }
 }
