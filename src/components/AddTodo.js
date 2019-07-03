@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class AddTodo extends Component {
 
@@ -30,6 +31,10 @@ const addButton = {
   color: '#fff',
   border: 'none',
   cursor: 'pointer'
+}
+
+AddTodo.propType = {
+  newTodo : PropTypes.func.isRequired,
 }
 
 export default AddTodo
