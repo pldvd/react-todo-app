@@ -26,7 +26,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Hello David</h1>
+        <h1>My ToDos</h1>
         <Todos todos={this.state.todos}/>
       </div>
     );
