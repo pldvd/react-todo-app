@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=20")
       .then(res => res.json())
       .then(resJson => {
         this.setState({ todos: resJson })
@@ -44,10 +44,16 @@ class App extends React.Component {
       completed: false
     }
 
-    this.setState({ todos: this.state.todos.concat(newTodoObj) });
-
-    // alternative solution with spread operator
-    // this.setState({todos: [...this.state.todos, newTodoObj]});
+    fetch("https://jsonplaceholder.typicode.com/todos?_limit=20", { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTodoObj),
+    })
+      .then(res => res.json())
+      .then(resJson => this.setState({todos: this.state.todos.concat(resJson)}));
   }
 
   render() {
