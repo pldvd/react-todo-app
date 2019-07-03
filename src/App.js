@@ -28,24 +28,39 @@ class App extends React.Component {
   }
 
   markComplete = (id) => {
-    this.setState({ todos: this.state.todos.map((todo) => {
-      if(todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      })
     })
-  })
   }
 
   deleteTodo = (id) => {
-    return this.setState({todos: this.state.todos.filter(todo => todo.id !== id)})
+    return this.setState({ todos: this.state.todos.filter(todo => todo.id !== id) })
+  }
+
+  addTodo = (newTodo) => {
+    let lastToDoId = this.state.todos[this.state.todos.length - 1].id;
+    let newTodoObj = {
+      id: lastToDoId + 1,
+      title: newTodo,
+      completed: false
+    }
+
+    this.setState({todos: this.state.todos.concat(newTodoObj)});
+
+    // alternative solution with spread operator
+    // this.setState({todos: [...this.state.todos, newTodoObj]});
   }
 
   render() {
     return (
       <div className="App">
         <Header />
-        <AddTodo />
+        <AddTodo addTodo={this.addTodo} />
         <Todos todos={this.state.todos} markComplete={this.markComplete} deleteTodo={this.deleteTodo} />
       </div>
     );
