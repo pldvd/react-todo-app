@@ -10,23 +10,15 @@ import About from './components/pages/About';
 class App extends React.Component {
 
   state = {
-    todos: [
-      {
-        id: 1,
-        title: 'Master JS',
-        completed: false
-      },
-      {
-        id: 2,
-        title: 'Master Node.js',
-        completed: false
-      },
-      {
-        id: 3,
-        title: 'Learn React',
-        completed: false
-      },
-    ]
+    todos: []
+  }
+
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then(res => res.json())
+      .then(resJson => {
+        this.setState({ todos: resJson })
+      })
   }
 
   markComplete = (id) => {
@@ -70,7 +62,7 @@ class App extends React.Component {
                 <Todos todos={this.state.todos} markComplete={this.markComplete} deleteTodo={this.deleteTodo} />
               </React.Fragment>
             )} />
-          <Route path="/about" component= {About} />
+          <Route path="/about" component={About} />
         </div>
       </Router>
     );
